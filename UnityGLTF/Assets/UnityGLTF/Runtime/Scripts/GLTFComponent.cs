@@ -67,9 +67,9 @@ namespace UnityGLTF
 			}
 		}
 
-		public async Task Load()
+		public async Task Load(ImportOptions importOptions = null)
 		{
-			var importOptions = new ImportOptions
+			importOptions ??= new ImportOptions()
 			{
 				AsyncCoroutineHelper = gameObject.GetComponent<AsyncCoroutineHelper>() ?? gameObject.AddComponent<AsyncCoroutineHelper>()
 			};
