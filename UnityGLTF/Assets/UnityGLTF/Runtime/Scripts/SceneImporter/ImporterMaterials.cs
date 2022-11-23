@@ -86,7 +86,7 @@ namespace UnityGLTF
 				if (pbr.BaseColorTexture != null)
 				{
 					TextureId textureId = pbr.BaseColorTexture.Index;
-					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false);
+                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
 					mrMapper.BaseColorTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					mrMapper.BaseColorTexCoord = pbr.BaseColorTexture.TexCoord;
 
@@ -110,7 +110,7 @@ namespace UnityGLTF
 				if (pbr.MetallicRoughnessTexture != null)
 				{
 					TextureId textureId = pbr.MetallicRoughnessTexture.Index;
-					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true);
+                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true, CompressTextures);
 					mrMapper.MetallicRoughnessTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					mrMapper.MetallicRoughnessTexCoord = pbr.MetallicRoughnessTexture.TexCoord;
 
@@ -141,7 +141,7 @@ namespace UnityGLTF
 				if (specGloss.DiffuseTexture != null)
 				{
 					TextureId textureId = specGloss.DiffuseTexture.Index;
-					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false);
+                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
 					sgMapper.DiffuseTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					sgMapper.DiffuseTexCoord = specGloss.DiffuseTexture.TexCoord;
 
@@ -161,7 +161,7 @@ namespace UnityGLTF
 				if (specGloss.SpecularGlossinessTexture != null)
 				{
 					TextureId textureId = specGloss.SpecularGlossinessTexture.Index;
-					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false);
+                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
 					sgMapper.SpecularGlossinessTexture = _assetCache.TextureCache[textureId.Id].Texture;
 
 					var ext = GetTextureTransform(specGloss.SpecularGlossinessTexture);
@@ -184,7 +184,7 @@ namespace UnityGLTF
 				if (pbr.BaseColorTexture != null)
 				{
 					TextureId textureId = pbr.BaseColorTexture.Index;
-					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false);
+                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
 					unlitMapper.BaseColorTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					unlitMapper.BaseColorTexCoord = pbr.BaseColorTexture.TexCoord;
 
@@ -286,7 +286,7 @@ namespace UnityGLTF
 				if (def.NormalTexture != null)
 				{
 					TextureId textureId = def.NormalTexture.Index;
-					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true);
+                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true, CompressTextures);
 					uniformMapper.NormalTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					uniformMapper.NormalTexCoord = def.NormalTexture.TexCoord;
 					uniformMapper.NormalTexScale = def.NormalTexture.Scale;
@@ -305,7 +305,8 @@ namespace UnityGLTF
 				{
 					uniformMapper.OcclusionTexStrength = def.OcclusionTexture.Strength;
 					TextureId textureId = def.OcclusionTexture.Index;
-					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true);
+                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true,
+                        CompressTextures);
 					uniformMapper.OcclusionTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					uniformMapper.OcclusionTexCoord = def.OcclusionTexture.TexCoord;
 
@@ -327,7 +328,7 @@ namespace UnityGLTF
 				if (def.EmissiveTexture != null)
 				{
 					TextureId textureId = def.EmissiveTexture.Index;
-					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false);
+                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
 					uniformMapper.EmissiveTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					uniformMapper.EmissiveTexCoord = def.EmissiveTexture.TexCoord;
 
