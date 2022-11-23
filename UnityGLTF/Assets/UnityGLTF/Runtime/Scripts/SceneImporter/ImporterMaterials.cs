@@ -86,7 +86,7 @@ namespace UnityGLTF
 				if (pbr.BaseColorTexture != null)
 				{
 					TextureId textureId = pbr.BaseColorTexture.Index;
-                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
+					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
 					mrMapper.BaseColorTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					mrMapper.BaseColorTexCoord = pbr.BaseColorTexture.TexCoord;
 
@@ -110,7 +110,7 @@ namespace UnityGLTF
 				if (pbr.MetallicRoughnessTexture != null)
 				{
 					TextureId textureId = pbr.MetallicRoughnessTexture.Index;
-                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true, CompressTextures);
+					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true, CompressTextures);
 					mrMapper.MetallicRoughnessTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					mrMapper.MetallicRoughnessTexCoord = pbr.MetallicRoughnessTexture.TexCoord;
 
@@ -141,7 +141,7 @@ namespace UnityGLTF
 				if (specGloss.DiffuseTexture != null)
 				{
 					TextureId textureId = specGloss.DiffuseTexture.Index;
-                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
+					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
 					sgMapper.DiffuseTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					sgMapper.DiffuseTexCoord = specGloss.DiffuseTexture.TexCoord;
 
@@ -161,7 +161,7 @@ namespace UnityGLTF
 				if (specGloss.SpecularGlossinessTexture != null)
 				{
 					TextureId textureId = specGloss.SpecularGlossinessTexture.Index;
-                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
+					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
 					sgMapper.SpecularGlossinessTexture = _assetCache.TextureCache[textureId.Id].Texture;
 
 					var ext = GetTextureTransform(specGloss.SpecularGlossinessTexture);
@@ -184,7 +184,7 @@ namespace UnityGLTF
 				if (pbr.BaseColorTexture != null)
 				{
 					TextureId textureId = pbr.BaseColorTexture.Index;
-                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
+					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
 					unlitMapper.BaseColorTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					unlitMapper.BaseColorTexCoord = pbr.BaseColorTexture.TexCoord;
 
@@ -286,7 +286,7 @@ namespace UnityGLTF
 				if (def.NormalTexture != null)
 				{
 					TextureId textureId = def.NormalTexture.Index;
-                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true, CompressTextures);
+					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true, CompressTextures);
 					uniformMapper.NormalTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					uniformMapper.NormalTexCoord = def.NormalTexture.TexCoord;
 					uniformMapper.NormalTexScale = def.NormalTexture.Scale;
@@ -305,8 +305,8 @@ namespace UnityGLTF
 				{
 					uniformMapper.OcclusionTexStrength = def.OcclusionTexture.Strength;
 					TextureId textureId = def.OcclusionTexture.Index;
-                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true,
-                        CompressTextures);
+					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true,
+						CompressTextures);
 					uniformMapper.OcclusionTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					uniformMapper.OcclusionTexCoord = def.OcclusionTexture.TexCoord;
 
@@ -328,7 +328,7 @@ namespace UnityGLTF
 				if (def.EmissiveTexture != null)
 				{
 					TextureId textureId = def.EmissiveTexture.Index;
-                    await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
+					await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, false, CompressTextures);
 					uniformMapper.EmissiveTexture = _assetCache.TextureCache[textureId.Id].Texture;
 					uniformMapper.EmissiveTexCoord = def.EmissiveTexture.TexCoord;
 
@@ -516,7 +516,7 @@ namespace UnityGLTF
 		protected virtual KHR_materials_emissive_strength GetEmissiveStrength(GLTFMaterial def)
 		{
 			if (_gltfRoot.ExtensionsUsed != null && _gltfRoot.ExtensionsUsed.Contains(KHR_materials_emissive_strength_Factory.EXTENSION_NAME) &&
-			    def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_emissive_strength_Factory.EXTENSION_NAME, out var extension))
+				def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_emissive_strength_Factory.EXTENSION_NAME, out var extension))
 			{
 				return (KHR_materials_emissive_strength) extension;
 			}
@@ -526,7 +526,7 @@ namespace UnityGLTF
 		protected virtual KHR_materials_transmission GetTransmission(GLTFMaterial def)
 		{
 			if (_gltfRoot.ExtensionsUsed != null && _gltfRoot.ExtensionsUsed.Contains(KHR_materials_transmission_Factory.EXTENSION_NAME) &&
-			    def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_transmission_Factory.EXTENSION_NAME, out var extension))
+				def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_transmission_Factory.EXTENSION_NAME, out var extension))
 			{
 				return (KHR_materials_transmission) extension;
 			}
@@ -536,7 +536,7 @@ namespace UnityGLTF
 		protected virtual KHR_materials_volume GetVolume(GLTFMaterial def)
 		{
 			if (_gltfRoot.ExtensionsUsed != null && _gltfRoot.ExtensionsUsed.Contains(KHR_materials_volume_Factory.EXTENSION_NAME) &&
-			    def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_volume_Factory.EXTENSION_NAME, out var extension))
+				def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_volume_Factory.EXTENSION_NAME, out var extension))
 			{
 				return (KHR_materials_volume) extension;
 			}
@@ -546,7 +546,7 @@ namespace UnityGLTF
 		protected virtual KHR_materials_ior GetIOR(GLTFMaterial def)
 		{
 			if (_gltfRoot.ExtensionsUsed != null && _gltfRoot.ExtensionsUsed.Contains(KHR_materials_ior_Factory.EXTENSION_NAME) &&
-			    def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_ior_Factory.EXTENSION_NAME, out var extension))
+				def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_ior_Factory.EXTENSION_NAME, out var extension))
 			{
 				return (KHR_materials_ior) extension;
 			}
@@ -556,7 +556,7 @@ namespace UnityGLTF
 		protected virtual KHR_materials_iridescence GetIridescence(GLTFMaterial def)
 		{
 			if (_gltfRoot.ExtensionsUsed != null && _gltfRoot.ExtensionsUsed.Contains(KHR_materials_iridescence_Factory.EXTENSION_NAME) &&
-			    def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_iridescence_Factory.EXTENSION_NAME, out var extension))
+				def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_iridescence_Factory.EXTENSION_NAME, out var extension))
 			{
 				return (KHR_materials_iridescence) extension;
 			}
@@ -566,7 +566,7 @@ namespace UnityGLTF
 		protected virtual KHR_materials_specular GetSpecular(GLTFMaterial def)
 		{
 			if (_gltfRoot.ExtensionsUsed != null && _gltfRoot.ExtensionsUsed.Contains(KHR_materials_specular_Factory.EXTENSION_NAME) &&
-			    def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_specular_Factory.EXTENSION_NAME, out var extension))
+				def.Extensions != null && def.Extensions.TryGetValue(KHR_materials_specular_Factory.EXTENSION_NAME, out var extension))
 			{
 				return (KHR_materials_specular) extension;
 			}

@@ -29,7 +29,7 @@ namespace UnityGLTF
 			if (textureInfo?.Index?.Value == null) return result;
 
 			TextureId textureId = textureInfo.Index;
-            await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true, CompressTextures);
+			await ConstructTexture(textureId.Value, textureId.Id, !KeepCPUCopyOfTexture, true, CompressTextures);
 			result.Texture = _assetCache.TextureCache[textureId.Id].Texture;
 			result.TexCoord = textureInfo.TexCoord;
 
@@ -50,7 +50,7 @@ namespace UnityGLTF
 			return result;
 		}
 
-        protected async Task ConstructImage(GLTFImage image, int imageCacheIndex, bool markGpuOnly, bool isLinear, bool compress)
+		protected async Task ConstructImage(GLTFImage image, int imageCacheIndex, bool markGpuOnly, bool isLinear, bool compress)
 		{
 			if (_assetCache.ImageCache[imageCacheIndex] == null)
 			{
@@ -81,7 +81,7 @@ namespace UnityGLTF
 				}
 
 				await YieldOnTimeoutAndThrowOnLowMemory();
-                await ConstructUnityTexture(stream, markGpuOnly, isLinear, compress, image, imageCacheIndex);
+				await ConstructUnityTexture(stream, markGpuOnly, isLinear, compress, image, imageCacheIndex);
 			}
 		}
 
@@ -113,14 +113,14 @@ namespace UnityGLTF
 			}
 		}
 
-        async Task CheckMimeTypeAndLoadImage(GLTFImage image, Texture2D texture, byte[] data, bool markGpuOnly, bool compress)
+		async Task CheckMimeTypeAndLoadImage(GLTFImage image, Texture2D texture, byte[] data, bool markGpuOnly, bool compress)
 		{
 			switch (image.MimeType)
 			{
 				case "image/png":
 				case "image/jpeg":
 					//	NOTE: the second parameter of LoadImage() marks non-readable, but we can't mark it until after we call Apply()
-                    texture.LoadImage(data, markNonReadable: false);
+					texture.LoadImage(data, markNonReadable: false);
 					break;
 				case "image/ktx2":
 #if HAVE_KTX
@@ -139,18 +139,18 @@ namespace UnityGLTF
 #endif
 					break;
 				default:
-                    texture.LoadImage(data, markNonReadable: false);
+					texture.LoadImage(data, markNonReadable: false);
 					break;
 			}
-            if (compress)
-                texture.Compress(true);
-            if (markGpuOnly)
-                texture.Apply(updateMipmaps: false, makeNoLongerReadable: true);
+			if (compress)
+				texture.Compress(true);
+			if (markGpuOnly)
+				texture.Apply(updateMipmaps: false, makeNoLongerReadable: true);
 
 			await Task.CompletedTask;
 		}
 
-        protected virtual async Task ConstructUnityTexture(Stream stream, bool markGpuOnly, bool isLinear, bool compress, GLTFImage image, int imageCacheIndex)
+		protected virtual async Task ConstructUnityTexture(Stream stream, bool markGpuOnly, bool isLinear, bool compress, GLTFImage image, int imageCacheIndex)
 		{
 #if UNITY_EDITOR
 			if (stream is AssetDatabaseStream assetDatabaseStream)
@@ -170,7 +170,7 @@ namespace UnityGLTF
 				using (MemoryStream memoryStream = stream as MemoryStream)
 				{
 					await YieldOnTimeoutAndThrowOnLowMemory();
-                    await CheckMimeTypeAndLoadImage(image, texture, memoryStream.ToArray(), markGpuOnly, compress);
+					await CheckMimeTypeAndLoadImage(image, texture, memoryStream.ToArray(), markGpuOnly, compress);
 				}
 			}
 			else
@@ -185,7 +185,7 @@ namespace UnityGLTF
 				stream.Read(buffer, 0, (int)stream.Length);
 
 				await YieldOnTimeoutAndThrowOnLowMemory();
-                await CheckMimeTypeAndLoadImage(image, texture, buffer, markGpuOnly, compress);
+				await CheckMimeTypeAndLoadImage(image, texture, buffer, markGpuOnly, compress);
 			}
 
 			if (_assetCache.ImageCache[imageCacheIndex] != null) Debug.Log(LogType.Assert, "ImageCache should not be loaded multiple times");
@@ -208,7 +208,7 @@ namespace UnityGLTF
 		/// <param name="markGpuOnly">Whether the texture is GPU only, instead of keeping a CPU copy</param>
 		/// <param name="isLinear">Whether the texture is linear rather than sRGB</param>
 		/// <returns>The loading task</returns>
-        public virtual async Task LoadTextureAsync(GLTFTexture texture, int textureIndex, bool markGpuOnly, bool isLinear, bool compress)
+		public virtual async Task LoadTextureAsync(GLTFTexture texture, int textureIndex, bool markGpuOnly, bool isLinear, bool compress)
 		{
 			try
 			{
@@ -238,7 +238,7 @@ namespace UnityGLTF
 				}
 
 				await ConstructImageBuffer(texture, textureIndex);
-                await ConstructTexture(texture, textureIndex, markGpuOnly, isLinear, compress);
+				await ConstructTexture(texture, textureIndex, markGpuOnly, isLinear, compress);
 			}
 			finally
 			{
@@ -249,9 +249,9 @@ namespace UnityGLTF
 			}
 		}
 
-        public virtual Task LoadTextureAsync(GLTFTexture texture, int textureIndex, bool isLinear, bool compress)
+		public virtual Task LoadTextureAsync(GLTFTexture texture, int textureIndex, bool isLinear, bool compress)
 		{
-            return LoadTextureAsync(texture, textureIndex, !KeepCPUCopyOfTexture, isLinear, compress);
+			return LoadTextureAsync(texture, textureIndex, !KeepCPUCopyOfTexture, isLinear, compress);
 		}
 
 		/// <summary>
@@ -274,13 +274,13 @@ namespace UnityGLTF
 			return _assetCache.TextureCache[textureIndex].Texture;
 		}
 
-        protected virtual async Task ConstructTexture(GLTFTexture texture, int textureIndex, bool markGpuOnly, bool isLinear, bool compress)
+		protected virtual async Task ConstructTexture(GLTFTexture texture, int textureIndex, bool markGpuOnly, bool isLinear, bool compress)
 		{
 			if (_assetCache.TextureCache[textureIndex].Texture == null)
 			{
 				int sourceId = GetTextureSourceId(texture);
 				GLTFImage image = _gltfRoot.Images[sourceId];
-                await ConstructImage(image, sourceId, markGpuOnly, isLinear, compress);
+				await ConstructImage(image, sourceId, markGpuOnly, isLinear, compress);
 
 				var source = _assetCache.ImageCache[sourceId];
 				FilterMode desiredFilterMode;
