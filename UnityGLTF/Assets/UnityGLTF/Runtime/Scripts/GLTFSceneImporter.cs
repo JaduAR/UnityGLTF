@@ -213,6 +213,11 @@ namespace UnityGLTF
 		public bool CullFarLOD = false;
 
 		/// <summary>
+		/// Whether to run <c>Texture2D.Compress(true)</c> on textures.
+		/// </summary>
+		public bool CompressTextures = true;
+
+		/// <summary>
 		/// Statistics from the scene
 		/// </summary>
 		public ImportStatistics Statistics;
